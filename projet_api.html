@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!-- <!DOCTYPE html> : indique au navigateur que le document utilise HTML5 -->
+<html lang="fr">
+<!-- <html> : racine de la page. lang="fr" signale que le contenu est en français -->
+
+<head>
+    <!-- <head> : informations invisibles de la page (titre, styles, réglages) -->
+    <meta charset="utf-8">
+    <!-- charset="utf-8" : affichage correct des accents et des emojis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <!-- viewport : adapte la page à la largeur des téléphones ; viewport-fit=cover gère les écrans à encoche -->
+    <meta name="description" content="Création d'API avec TIA Portal : configuration et programmation d'un automate programmable industriel Siemens. Projet d'Omo-Lara E. Irfane SALAMI.">
+    <!-- description : texte affiché par Google sous le titre dans les résultats de recherche -->
+    <meta name="theme-color" content="#1b1030">
+    <!-- theme-color : colore la barre du navigateur sur mobile (même violet que le site) -->
+    <title>Création d'API avec TIA Portal – Omo-Lara Irfane SALAMI</title>
+    <!-- <title> : titre affiché dans l'onglet du navigateur -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Bibliothèque d'icônes Font Awesome : nécessaire pour afficher les balises <i class="fas fa-..."> (connexion internet requise) -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet"> : relie la page à la feuille de style commune styles.css -->
+</head>
+
+<body>
+    <!-- <body> : tout le contenu visible de la page -->
+
+    <a class="lien-evitement" href="#contenu-principal">Aller au contenu principal</a>
+    <!-- Lien d'accessibilité : invisible tant qu'on ne navigue pas au clavier (touche Tab) ; il saute directement au contenu -->
+
+    <header class="entete">
+        <!-- <header> : en-tête de la page, identique sur toutes les pages -->
+        <div class="entete__barre">
+            <!-- Boîte qui aligne le logo et le menu sur une ligne -->
+            <a class="logo" href="index.html#accueil">
+                <!-- Le logo est un lien qui ramène à la page d'accueil -->
+                Omo-Lara<span class="logo__point">.</span>
+                <!-- <span> : zone de texte sans effet propre, utilisée pour colorer le point en rose -->
+            </a>
+            <nav class="menu" aria-label="Navigation principale">
+                <!-- <nav> : menu de navigation ; aria-label l'identifie pour les lecteurs d'écran -->
+                <a href="index.html#accueil">Accueil</a>
+                <a href="index.html#competences">Compétences</a>
+                <a href="index.html#parcours">Parcours</a>
+                <a href="index.html#projets">Projets</a>
+                <a href="index.html#contact">Contact</a>
+                <!-- Les liens commencent par "index.html" car ils pointent vers des sections d'une AUTRE page -->
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenu-principal" class="page-projet">
+        <!-- <main> : contenu principal et unique de la page ; la classe "page-projet" donne la colonne étroite centrée -->
+
+        <a class="page-projet__retour" href="index.html#projets">← Retour aux projets</a>
+        <!-- Lien de retour vers la section « Mes projets » de l'accueil -->
+
+        <article>
+            <!-- <article> : contenu autonome = la fiche complète de ce projet -->
+
+            <header>
+                <!-- <header> (dans l'article) : en-tête de la fiche -->
+                <p class="surtitre">Projet</p>
+                <!-- Petit badge au-dessus du titre -->
+                <h1 class="page-projet__titre">
+                    <!-- <h1> : titre principal de la page (un seul par page) ; ligne flexible : badge d'icône + texte -->
+                    <span class="page-projet__icone" aria-hidden="true"><i class="fas fa-microchip"></i></span>
+                    <!-- Badge jaune à bordure orange contenant une puce électronique ; aria-hidden : l'icône est décorative -->
+                    Création d'API avec TIA Portal
+                </h1>
+                <p class="section__intro">Configuration et programmation d'un automate programmable industriel (API) Siemens avec le logiciel TIA Portal.</p>
+                <!-- Phrase de présentation. « API » = Automate Programmable Industriel (à ne pas confondre avec une API web) -->
+            </header>
+
+            <section aria-labelledby="titre-contexte">
+                <!-- <section> : bloc thématique ; aria-labelledby le relie à son titre (#titre-contexte) -->
+                <h2 id="titre-contexte" class="page-projet__sous-titre">Contexte</h2>
+                <!-- <h2> : titre de section (niveau 2, sous le <h1>) -->
+                <dl class="contexte">
+                    <!-- <dl> : liste de définitions (terme + valeur), adaptée à « Rôle : … », « Période : … » -->
+                    <div class="contexte__ligne"><dt>Rôle</dt><dd>Concevoir, programmer et configurer des automates programmables industriels (API) à l'aide du logiciel TIA Portal afin d'automatiser les processus industriels, de contrôler les équipements électriques et de gérer les entrées et sorties des systèmes automatisés.</dd></div>
+                    <!-- <dt> = le terme ; <dd> = sa valeur ; <div> regroupe les deux pour la mise en page -->
+                    <div class="contexte__ligne"><dt>Période</dt><dd>Enseignement secondaire technique, filière Électrotechnique</dd></div>
+                    <div class="contexte__ligne"><dt>Lieu</dt><dd> Lycée Technique Le Phénix, République du Bénin.</dd></div>
+                </dl>
+            </section>
+
+            <section aria-labelledby="titre-technologies">
+                <h2 id="titre-technologies" class="page-projet__sous-titre">Technologies</h2>
+                <ul class="infos">
+                    <!-- <ul> : liste ; "infos" + "etiquette" affichent les mots-clés sous forme de pastilles -->
+                    <li class="etiquette">TIA Portal</li>
+                    <li class="etiquette">Automate Siemens S7</li>
+                    <li class="etiquette">LADDER</li>
+                    <li class="etiquette">Simulation PLCSIM</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titre-objectifs">
+                <h2 id="titre-objectifs" class="page-projet__sous-titre">Objectifs</h2>
+                <ul class="page-projet__liste">
+                    <!-- Liste à puces des objectifs du projet -->
+                    <li>Analyser le cahier des charges de l'automatisme</li>
+                    <li>Configurer le matériel (automate, entrées/sorties) dans TIA Portal</li>
+                    <li>Programmer l'automate puis le simuler et le tester</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titre-resultat">
+                <h2 id="titre-resultat" class="page-projet__sous-titre">Résultat</h2>
+                <p class="page-projet__texte">Un programme d'automate fonctionnel, validé en simulation, qui pilote le système selon le cahier des charges. (Texte à adapter à ton projet.)</p>
+            </section>
+
+            <section aria-labelledby="titre-galerie">
+                <h2 id="titre-galerie" class="page-projet__sous-titre">Photos et preuves</h2>
+                <ul class="galerie">
+                    <!-- Galerie : chaque <li> contient une photo et sa légende.
+                         Les photos se déposent dans le dossier images/ avec le nom indiqué dans src -->
+                    <li>
+                        <figure class="galerie__figure">
+                            <a class="galerie__lien" href="images/api.png" target="_blank" rel="noopener">
+                                <img class="galerie__image" src="images/api.png" alt="Configuration matérielle de l'automate dans TIA Portal" loading="lazy">
+                            </a>
+                            <figcaption class="galerie__legende">Configuration matérielle de l'automate dans TIA Portal</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="galerie__figure">
+                            <a class="galerie__lien" href="images/api2.jpg" target="_blank" rel="noopener">
+                                <img class="galerie__image" src="images/api2.jpg" alt="GRAFCET et programme LADDER du projet" loading="lazy">
+                            </a>
+                            <figcaption class="galerie__legende">Station de pompage – Vue TIA Portal</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="galerie__figure">
+                            <a class="galerie__lien" href="images/api3.jpg" target="_blank" rel="noopener">
+                                <img class="galerie__image" src="images/api3.jpg" alt="Simulation et test du programme" loading="lazy">
+                            </a>
+                            <figcaption class="galerie__legende">Simulation et test du programme</figcaption>
+                        </figure>
+                    </li>
+                    <!-- <figure> + <figcaption> : image et légende ; <a> : un clic ouvre la photo en grand dans un nouvel onglet ;
+                         alt : texte lu par les lecteurs d'écran et affiché si l'image manque ;
+                         loading="lazy" : l'image ne se charge que lorsqu'elle approche de l'écran -->
+                </ul>
+            </section>
+
+            <section aria-labelledby="titre-autres">
+                <h2 id="titre-autres" class="page-projet__sous-titre">Autres projets</h2>
+                <ul class="infos">
+                    <!-- Liens rapides vers les autres pages projet -->
+                    <li class="etiquette"><a href="projet-electricite.html"><i class="fas fa-bolt" aria-hidden="true"></i> Installation électrique domestique</a></li>
+                    <li class="etiquette"><a href="projet-arduino.html">🤖 Système domotique Arduino</a></li>
+                </ul>
+            </section>
+
+            <a class="bouton" href="index.html#contact">Discuter de ce projet</a>
+            <!-- Bouton qui ramène au formulaire de contact de l'accueil -->
+        </article>
+    </main>
+
+    <footer class="pied">
+        <!-- <footer> : pied de page, identique sur toutes les pages -->
+        <p>© 2026 Omo-Lara E. Irfane SALAMI · Tous droits réservés</p>
+    </footer>
+
+    <a class="whatsapp" href="https://wa.me/2290157760662" target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp">
+        <!-- Bouton rond flottant ; target="_blank" ouvre un nouvel onglet, rel="noopener" le sécurise ; aria-label nomme le lien car il ne contient qu'une icône -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.4-.6-.5-1-1.2-1.2-1.5-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.4c-.2 0-.5.1-.7.3-.7.7-1 1.5-.9 2.5.2 1.1.7 2.1 1.4 3 1.4 1.8 3.1 2.7 4.7 3.1.9.3 1.7.2 2.3 0 .7-.2 1.3-.9 1.5-1.6.1-.4.1-.7 0-.8z"/></svg>
+        <!-- <svg> : image vectorielle (logo WhatsApp) nette à toutes les tailles -->
+    </a>
+
+    <script src="script.js"></script>
+    <!-- <script> : charge le JavaScript en fin de page ; ici il sert à remplacer une photo absente par un cadre « Photo à ajouter » -->
+</body>
+
+</html>

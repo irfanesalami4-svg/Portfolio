@@ -1,0 +1,926 @@
+/* ==========================================================================
+   STYLES.CSS – Portfolio d'Omo-Lara E. Irfane SALAMI
+   Thème : rose violacé sur fond violet nuit (univers électronique)
+   Convention des noms de classes : bloc__element--variante
+     - bloc     = un composant (ex. .carte)
+     - __element = une partie de ce composant (ex. .carte__titre)
+     - --variante = une version différente (ex. .bouton--contour)
+   Sommaire :
+     1. Variables (couleurs, tailles)
+     2. Réglages de base
+     3. Accessibilité
+     4. En-tête et menu
+     5. Section Accueil (hero)
+     6. Éléments communs (sections, boutons, cartes)
+     7. Compétences
+     8. Parcours
+     9. Projets
+    10. Contact
+    11. Pied de page et bouton WhatsApp
+    12. Page détail d'un projet
+    13. Adaptation mobile
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES
+   Une variable CSS se déclare avec -- et s'utilise avec var(--nom).
+   On change une couleur ici et tout le site se met à jour.
+   ========================================================================== */
+
+:root {                                          /* :root = la racine de la page (balise <html>) */
+    --fond: #1b1030;                             /* violet nuit : fond général de la page */
+    --fond-degrade: #2d1658;                     /* violet plus clair : sert à créer le dégradé du fond */
+    --surface: #271845;                          /* couleur de fond des cartes */
+    --surface-douce: #35205c;                    /* fond léger : étiquettes, barres vides, survols */
+    --texte: #f7edff;                            /* couleur du texte principal (blanc rosé) */
+    --texte-doux: #bfa8d6;                       /* couleur du texte secondaire (lilas grisé) */
+    --accent: #ff4fa3;                           /* rose vif : couleur d'accent principale */
+    --accent-2: #c77dff;                         /* violet clair : seconde couleur du dégradé */
+    --texte-bouton: #1b1030;                     /* texte sombre posé sur les boutons clairs */
+    --bordure: #4a2c75;                          /* couleur des traits et contours */
+    --ombre-accent: rgba(255, 79, 163, 0.35);    /* lueur rose (rgba = rouge, vert, bleu, transparence) */
+    --entete-fond: rgba(27, 16, 48, 0.85);       /* fond semi-transparent de l'en-tête */
+    --rayon: 16px;                               /* arrondi standard des cartes */
+    --police-titre: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; /* police des titres (sans-serif, rapide à charger) */
+    --police-texte: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; /* police du texte courant */
+
+    color-scheme: dark;                          /* dit au navigateur que la page est sombre (barres de défilement, champs) */
+    box-sizing: border-box;                      /* la largeur d'un élément inclut son padding et sa bordure */
+    padding-top: env(safe-area-inset-top, 0px);  /* laisse la place de l'encoche des téléphones (0 sur ordinateur) */
+    padding-bottom: env(safe-area-inset-bottom, 0px); /* idem pour la barre en bas des téléphones */
+}
+
+/* Thème clair : appliqué seulement si l'appareil de la personne est réglé en mode clair */
+@media (prefers-color-scheme: light) {           /* @media = règles conditionnelles ; ici selon le mode clair/sombre du système */
+    :root {
+        --fond: #fff4fb;                         /* fond rose très pâle */
+        --fond-degrade: #f3e8ff;                 /* lavande pâle pour le dégradé */
+        --surface: #ffffff;                      /* cartes blanches */
+        --surface-douce: #fbe6f4;                /* rose pâle pour étiquettes et barres vides */
+        --texte: #2b1240;                        /* texte violet très foncé */
+        --texte-doux: #6f5683;                   /* texte secondaire violet grisé */
+        --accent: #c0268f;                       /* fuchsia plus sombre, lisible sur fond clair */
+        --accent-2: #7c3aed;                     /* violet intense */
+        --texte-bouton: #ffffff;                 /* texte blanc sur les boutons foncés */
+        --bordure: #ecd2e6;                      /* traits rose pâle */
+        --ombre-accent: rgba(192, 38, 143, 0.25);/* lueur fuchsia plus discrète */
+        --entete-fond: rgba(255, 244, 251, 0.88);/* en-tête clair semi-transparent */
+        color-scheme: light;                     /* page claire pour le navigateur */
+    }
+}
+
+
+/* ==========================================================================
+   2. RÉGLAGES DE BASE
+   ========================================================================== */
+
+*,                                               /* * = tous les éléments de la page */
+*::before,                                       /* ::before = pseudo-élément placé avant le contenu */
+*::after {                                       /* ::after = pseudo-élément placé après le contenu */
+    box-sizing: border-box;                      /* même calcul de taille partout (évite les débordements) */
+}
+
+html {                                           /* la page entière */
+    scroll-behavior: smooth;                     /* défilement doux quand on clique sur un lien du menu */
+    scroll-padding-top: calc(80px + env(safe-area-inset-top, 0px)); /* évite que l'en-tête fixe cache le titre de la section atteinte */
+}
+
+body {                                           /* le contenu visible */
+    margin: 0;                                   /* supprime la marge par défaut du navigateur */
+    background-color: var(--fond);               /* couleur de secours si le dégradé ne s'affiche pas */
+    background-image:                            /* plusieurs fonds superposés : cercles lumineux puis dégradé */
+        radial-gradient(circle at 85% 8%, rgba(255, 79, 163, 0.18), transparent 38%),   /* halo rose en haut à droite */
+        radial-gradient(circle at 5% 70%, rgba(155, 93, 229, 0.20), transparent 40%),   /* halo violet à gauche */
+        linear-gradient(160deg, var(--fond) 0%, var(--fond-degrade) 60%, var(--fond) 100%); /* dégradé diagonal du fond */
+    background-attachment: fixed;                /* le fond reste immobile pendant le défilement */
+    color: var(--texte);                         /* couleur du texte par défaut */
+    font-family: var(--police-texte);            /* police du texte */
+    font-size: 1rem;                             /* taille de base = 16 px par défaut (rem = taille de la page) */
+    line-height: 1.65;                           /* espace entre les lignes, pour un texte aéré */
+    -webkit-font-smoothing: antialiased;         /* texte plus net sur Mac et iPhone */
+}
+
+h1, h2, h3 {                                     /* tous les titres */
+    font-family: var(--police-titre);            /* même police pour tous les titres */
+    line-height: 1.15;                           /* interligne plus serré, adapté aux gros titres */
+    margin: 0;                                   /* on gère les espaces nous-mêmes */
+}
+
+p {                                              /* les paragraphes */
+    margin: 0;                                   /* retire la marge par défaut, remplacée par des espaces choisis */
+}
+
+ul, ol {                                         /* listes à puces et listes numérotées */
+    list-style: none;                            /* retire les puces : on les redessine nous-mêmes si besoin */
+    margin: 0;                                   /* retire la marge par défaut */
+    padding: 0;                                  /* retire le retrait par défaut */
+}
+
+a {                                              /* tous les liens */
+    color: var(--accent);                        /* liens en rose */
+}
+
+a:hover {                                        /* :hover = quand la souris passe dessus */
+    color: var(--accent-2);                      /* le lien devient violet */
+}
+
+address {                                        /* la balise <address> */
+    font-style: normal;                          /* annule l'italique appliqué par défaut */
+}
+
+img, svg {                                       /* images et icônes vectorielles */
+    max-width: 100%;                             /* ne dépassent jamais la largeur de leur conteneur */
+}
+
+
+/* ==========================================================================
+   3. ACCESSIBILITÉ
+   ========================================================================== */
+
+:focus-visible {                                 /* élément atteint au clavier (touche Tab) */
+    outline: 3px solid var(--accent-2);          /* contour violet bien visible */
+    outline-offset: 3px;                         /* petit écart entre l'élément et son contour */
+}
+
+.lien-evitement {                                /* lien « Aller au contenu principal » */
+    position: absolute;                          /* sorti du flux normal de la page */
+    left: 16px;                                  /* distance depuis la gauche */
+    top: -60px;                                  /* caché au-dessus de l'écran */
+    z-index: 100;                                /* passe devant tout le reste quand il apparaît */
+    padding: 10px 16px;                          /* espace intérieur */
+    border-radius: 0 0 10px 10px;                /* coins arrondis seulement en bas */
+    background: var(--accent);                   /* fond rose */
+    color: var(--texte-bouton);                  /* texte lisible sur le rose */
+    font-weight: 600;                            /* texte en semi-gras */
+    text-decoration: none;                       /* retire le soulignement */
+}
+
+.lien-evitement:focus {                          /* quand le lien reçoit le focus au clavier */
+    top: 0;                                      /* il descend et devient visible */
+    color: var(--texte-bouton);                  /* garde la couleur de texte (évite le violet du :hover) */
+}
+
+
+/* ==========================================================================
+   4. EN-TÊTE ET MENU
+   ========================================================================== */
+
+.entete {                                        /* <header> : bandeau du haut */
+    position: sticky;                            /* reste collé en haut pendant le défilement */
+    top: env(safe-area-inset-top, 0px);          /* se place sous l'encoche des téléphones */
+    z-index: 10;                                 /* reste au-dessus du contenu */
+    background: var(--entete-fond);              /* fond semi-transparent */
+    -webkit-backdrop-filter: blur(10px);         /* flou derrière l'en-tête (Safari) */
+    backdrop-filter: blur(10px);                 /* flou derrière l'en-tête (autres navigateurs) */
+    border-bottom: 1px solid var(--bordure);     /* fin trait sous l'en-tête */
+}
+
+.entete__barre {                                 /* boîte qui aligne logo et menu */
+    display: flex;                               /* flexbox : place les enfants sur une ligne */
+    justify-content: space-between;              /* logo à gauche, menu à droite */
+    align-items: center;                         /* centre verticalement */
+    gap: 12px;                                   /* espace minimum entre logo et menu */
+    max-width: 1100px;                           /* largeur maximale du contenu */
+    margin: 0 auto;                              /* centre la boîte horizontalement */
+    padding: 14px 20px;                          /* espace intérieur : haut/bas 14px, côtés 20px */
+}
+
+.logo {                                          /* texte « Omo-Lara. » */
+    color: var(--texte);                         /* texte clair */
+    font: 700 1.35rem var(--police-titre);       /* raccourci : graisse 700 (gras), taille 1.35rem, police */
+    letter-spacing: 0.3px;                       /* léger espace entre les lettres */
+    text-decoration: none;                       /* retire le soulignement du lien */
+}
+
+.logo:hover {                                    /* survol du logo */
+    color: var(--texte);                         /* il garde sa couleur */
+}
+
+.logo__point {                                   /* le point final du logo */
+    color: var(--accent);                        /* en rose */
+}
+
+.menu {                                          /* <nav> : liste des liens */
+    display: flex;                               /* liens alignés sur une ligne */
+    flex-wrap: wrap;                             /* passent à la ligne si la place manque */
+    gap: 4px;                                    /* petit espace entre les liens */
+}
+
+.menu a {                                        /* chaque lien du menu */
+    padding: 7px 14px;                           /* zone cliquable confortable */
+    border-radius: 999px;                        /* très grand arrondi = forme de pilule */
+    color: var(--texte-doux);                    /* couleur discrète */
+    font-size: 0.95rem;                          /* légèrement plus petit que le texte */
+    text-decoration: none;                       /* retire le soulignement */
+    transition: background-color 0.2s, color 0.2s; /* changement progressif des couleurs sur 0,2 seconde */
+}
+
+.menu a:hover {                                  /* survol d'un lien du menu */
+    background: var(--surface-douce);            /* fond léger */
+    color: var(--accent);                        /* texte rose */
+}
+
+
+/* ==========================================================================
+   5. SECTION ACCUEIL (HERO)
+   ========================================================================== */
+
+.hero {                                          /* <section id="accueil"> */
+    display: grid;                               /* mise en page en grille */
+    grid-template-columns: 1fr auto;             /* colonne texte (1fr = tout l'espace libre) + colonne médaillon (taille de son contenu) */
+    gap: 40px;                                   /* espace entre les deux colonnes */
+    align-items: center;                         /* centre verticalement les deux colonnes */
+    max-width: 1100px;                           /* largeur maximale */
+    margin: 0 auto;                              /* centre la section */
+    padding: 90px 20px 50px;                     /* haut 90px, côtés 20px, bas 50px */
+}
+
+.surtitre {                                      /* petit texte au-dessus du nom */
+    display: inline-block;                       /* la boîte épouse la taille du texte */
+    margin-bottom: 18px;                         /* espace sous le badge */
+    padding: 7px 18px;                           /* espace intérieur du badge */
+    border: 1px solid var(--accent);             /* contour rose */
+    border-radius: 999px;                        /* forme de pilule */
+    background: var(--surface-douce);            /* fond léger */
+    color: var(--accent);                        /* texte rose */
+    font: 600 0.85rem var(--police-titre);       /* semi-gras, petite taille */
+}
+
+.hero__titre {                                   /* <h1> : le nom */
+    font-size: clamp(2.2rem, 6vw, 3.8rem);       /* clamp(min, idéal, max) : taille qui s'adapte à l'écran */
+    font-weight: 800;                            /* très gras, comme sur la capture de référence */
+    margin-bottom: 18px;                         /* espace sous le titre */
+}
+
+.hero__nom {                                     /* le nom de famille mis en valeur */
+    display: block;                              /* passe à la ligne, comme sur la capture */
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)); /* dégradé rose vers violet */
+    -webkit-background-clip: text;               /* le dégradé n'apparaît que dans les lettres (Safari/Chrome) */
+    background-clip: text;                       /* même effet, version standard */
+    -webkit-text-fill-color: transparent;        /* rend les lettres transparentes pour laisser voir le dégradé */
+    color: var(--accent);                        /* couleur de secours si le dégradé n'est pas supporté */
+}
+
+.hero__intro {                                   /* paragraphe de présentation */
+    max-width: 560px;                            /* limite la longueur des lignes pour rester lisible */
+    color: var(--texte-doux);                    /* texte secondaire */
+    font-size: 1.1rem;                           /* un peu plus grand que le texte normal */
+    text-align: justify;
+}
+
+.hero__boutons {                                 /* boîte qui contient les 2 boutons */
+    margin-top: 26px;                            /* espace au-dessus */
+}
+
+.infos {                                         /* liste des étiquettes (école, ville, âge) */
+    display: flex;                               /* étiquettes sur une ligne */
+    flex-wrap: wrap;                             /* retour à la ligne si besoin */
+    gap: 10px;                                   /* espace entre étiquettes */
+    margin-top: 24px;                            /* espace au-dessus */
+}
+
+.etiquette {                                     /* une étiquette arrondie */
+    padding: 6px 14px;                           /* espace intérieur */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-radius: 999px;                        /* forme de pilule */
+    background: var(--surface-douce);            /* fond léger */
+    font: 0.9rem var(--police-titre);            /* petite taille */
+}
+
+.hero__visuel {                                  /* <figure> qui contient le médaillon */
+    margin: 0;                                   /* <figure> a une marge par défaut : on la retire */
+}
+
+.avatar {                                        /* médaillon avec les initiales */
+    display: grid;                               /* grille d'une seule case… */
+    place-items: center;                         /* …pour centrer facilement le texte */
+    width: 220px;                                /* largeur du cercle */
+    height: 220px;                               /* hauteur identique = cercle parfait */
+    border-radius: 50%;                          /* 50 % d'arrondi = cercle */
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); /* dégradé rose → violet en diagonale */
+    box-shadow: 0 0 0 10px var(--surface-douce), 0 12px 40px var(--ombre-accent); /* 1er : anneau autour du cercle ; 2e : lueur rose en dessous */
+    color: var(--texte-bouton);                  /* initiales sombres sur fond clair */
+    font: 800 4.5rem var(--police-titre);        /* très gros texte gras */
+}
+
+
+/* ==========================================================================
+   6. ÉLÉMENTS COMMUNS
+   ========================================================================== */
+
+.section {                                       /* chaque section (compétences, parcours, projets, contact) */
+    max-width: 1100px;                           /* largeur maximale */
+    margin: 0 auto;                              /* centre la section */
+    padding: 70px 20px 30px;                     /* espaces intérieurs */
+}
+
+.section__titre {                                /* <h2> des sections */
+    font-size: 2rem;                             /* taille du titre */
+    font-weight: 800;                            /* très gras */
+}
+
+.section__titre::after {                         /* trait décoratif ajouté sous chaque titre, sans HTML en plus */
+    content: "";                                 /* obligatoire pour qu'un ::after s'affiche (ici, vide) */
+    display: block;                              /* le trait occupe sa propre ligne */
+    width: 56px;                                 /* longueur du trait */
+    height: 4px;                                 /* épaisseur du trait */
+    margin-top: 10px;                            /* espace entre le titre et le trait */
+    border-radius: 2px;                          /* bouts légèrement arrondis */
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)); /* trait en dégradé rose → violet */
+}
+
+.section__intro {                                /* phrase sous le titre de section */
+    max-width: 640px;                            /* limite la longueur des lignes */
+    margin: 16px 0 30px;                         /* haut 16px, côtés 0, bas 30px */
+    color: var(--texte-doux);                    /* texte secondaire */
+}
+
+.grille {                                        /* grille de cartes */
+    display: grid;                               /* mise en page en grille */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* autant de colonnes que possible, chacune d'au moins 260px */
+    gap: 20px;                                   /* espace entre les cartes */
+}
+
+.carte {                                         /* boîte réutilisable (compétences, contact, projets) */
+    padding: 24px;                               /* espace intérieur */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-radius: var(--rayon);                 /* coins arrondis */
+    background: var(--surface);                  /* fond des cartes */
+}
+
+.carte__titre {                                  /* titre dans une carte */
+    margin-bottom: 14px;                         /* espace sous le titre */
+    font-size: 1.15rem;                          /* taille du titre */
+}
+
+.bouton {                                        /* bouton principal (liens et <button>) */
+    display: inline-block;                       /* se comporte comme un bloc mais reste sur la ligne */
+    margin: 6px 10px 0 0;                        /* espace au-dessus et à droite */
+    padding: 12px 26px;                          /* espace intérieur : le bouton est confortable à toucher */
+    border: 2px solid transparent;               /* bordure invisible, pour que les variantes gardent la même taille */
+    border-radius: 12px;                         /* coins arrondis */
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)); /* fond en dégradé rose → violet */
+    color: var(--texte-bouton);                  /* texte à fort contraste */
+    font: 700 1rem var(--police-titre);          /* texte gras */
+    text-decoration: none;                       /* retire le soulignement des liens */
+    cursor: pointer;                             /* curseur en forme de main */
+    transition: transform 0.2s, box-shadow 0.2s; /* animation douce au survol */
+}
+
+.bouton:hover {                                  /* survol du bouton */
+    color: var(--texte-bouton);                  /* garde la couleur du texte */
+    transform: translateY(-2px);                 /* le bouton monte de 2 px */
+    box-shadow: 0 8px 22px var(--ombre-accent);  /* lueur rose sous le bouton */
+}
+
+.bouton--contour {                               /* variante : bouton vide avec simple bordure */
+    background: none;                            /* retire le dégradé */
+    border-color: var(--accent);                 /* bordure rose */
+    color: var(--accent);                        /* texte rose */
+}
+
+.bouton--contour:hover {                         /* survol de la variante contour */
+    background: var(--surface-douce);            /* léger fond au survol */
+    color: var(--accent);                        /* le texte reste rose */
+}
+
+.bouton--whatsapp {                              /* variante : bouton vert WhatsApp */
+    background: #25d366;                         /* vert officiel de WhatsApp */
+    color: #0b2e1a;                              /* texte vert très foncé (bon contraste) */
+}
+
+.bouton--whatsapp:hover {                        /* survol du bouton WhatsApp */
+    color: #0b2e1a;                              /* garde sa couleur de texte */
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35); /* lueur verte au lieu de rose */
+}
+
+
+/* ==========================================================================
+   7. COMPÉTENCES
+   ========================================================================== */
+
+.competence {                                    /* une ligne = nom + barre de niveau */
+    margin: 14px 0;                              /* espace au-dessus et en dessous */
+}
+
+.competence__nom {                               /* nom de la compétence */
+    display: block;                              /* occupe toute la ligne, la barre passe dessous */
+    font-size: 0.95rem;                          /* légèrement plus petit */
+}
+
+.competence__fond {                              /* barre vide (fond gris-violet) */
+    height: 8px;                                 /* épaisseur de la barre */
+    margin-top: 6px;                             /* espace sous le nom */
+    border-radius: 6px;                          /* extrémités arrondies */
+    background: var(--surface-douce);            /* couleur de la barre vide */
+    overflow: hidden;                            /* coupe tout ce qui dépasse des coins arrondis */
+}
+
+.competence__niveau {                            /* partie colorée : sa largeur est donnée dans le HTML (style="width:80%") */
+    display: block;                              /* un <i> est en ligne par défaut : on le met en bloc pour lui donner une hauteur */
+    height: 100%;                                /* remplit toute la hauteur de la barre */
+    border-radius: 6px;                          /* extrémités arrondies */
+    background: linear-gradient(90deg, var(--accent), var(--accent-2)); /* dégradé rose → violet */
+}
+
+
+/* ==========================================================================
+   8. PARCOURS (chronologie verticale avec cartes colorées)
+   ========================================================================== */
+
+.chronologie {                                   /* <ol> : liste des étapes */
+    --etape-rose: #ff4fa3;                       /* couleur de la carte « rose » (thème sombre) */
+    --etape-violet: #c77dff;                     /* couleur de la carte « violet » */
+    --etape-fuchsia: #f472d0;                    /* couleur de la carte « fuchsia » */
+    --etape-indigo: #8f8cff;                     /* couleur de la carte « indigo » */
+    --etape-emeraude: #34d399;                   /* carte « émeraude » */
+    --etape-turquoise: #2dd4bf;                  /* couleur de la carte « turquoise » */
+    --etape-citron: #facc15;                     /* carte « citron » */
+    --etape-framboise: #f43f5e;                  /* carte « framboise » */
+    --etape-lime: #a3e635;                       /* carte « lime » */
+
+    position: relative;                          /* sert de repère pour placer la ligne verticale avec ::before */
+    display: grid;                               /* les cartes s'empilent en grille… */
+    gap: 28px;                                   /* …avec cet espace entre elles */
+    padding-left: 56px;                          /* espace à gauche pour la ligne et les pastilles */
+}
+
+@media (prefers-color-scheme: light) {           /* en mode clair, on utilise des teintes plus foncées (meilleur contraste) */
+    .chronologie {
+        --etape-rose: #d6336c;                   /* rose soutenu */
+        --etape-violet: #7c3aed;                 /* violet intense */
+        --etape-fuchsia: #b0219c;                /* fuchsia profond */
+        --etape-indigo: #4f46e5;                 /* indigo */
+        --etape-corail: #d9480f;                 /* corail soutenu */
+        --etape-ambre: #b45309;                  /* ambre foncé */
+        --etape-turquoise: #0f766e;              /* turquoise profond */
+        --etape-emeraude: #047857;               /* vert émeraude foncé */
+        --etape-citron: #a16207;                 /* jaune foncé, lisible sur blanc */
+        --etape-framboise: #be123c;              /* rouge framboise */
+        --etape-lime: #4d7c0f;                   /* vert lime foncé */
+    }
+}
+
+.chronologie::before {                           /* la ligne verticale (élément décoratif, sans HTML en plus) */
+    content: "";                                 /* contenu vide, obligatoire pour qu'un ::before s'affiche */
+    position: absolute;                          /* placée librement dans la liste */
+    left: 14px;                                  /* distance depuis la gauche */
+    top: 0;                                      /* part du haut de la liste… */
+    bottom: 0;                                   /* …et va jusqu'en bas */
+    width: 4px;                                  /* épaisseur de la ligne */
+    border-radius: 2px;                          /* extrémités arrondies */
+    background: linear-gradient(180deg, var(--accent), var(--accent-2)); /* dégradé vertical rose → violet */
+}
+
+.etape {                                         /* <li> : une étape */
+    --couleur-etape: var(--accent);              /* couleur par défaut si aucune variante n'est choisie */
+    position: relative;                          /* repère pour placer la pastille */
+}
+
+.etape--rose    { --couleur-etape: var(--etape-rose); }    /* variante : carte rose */
+.etape--violet  { --couleur-etape: var(--etape-violet); }  /* variante : carte violette */
+.etape--fuchsia { --couleur-etape: var(--etape-fuchsia); } /* variante : carte fuchsia */
+.etape--indigo  { --couleur-etape: var(--etape-indigo); }  /* variante : carte indigo */
+.etape--corail  { --couleur-etape: var(--etape-corail); }   /* variante : carte corail */
+.etape--ambre  { --couleur-etape: var(--etape-ambre); }     /* variante : carte ambre */
+.etape--turquoise  { --couleur-etape: var(--etape-turquoise); } /* variante : carte turquoise */
+.etape--emeraude  { --couleur-etape: var(--etape-emeraude); }  /* variante : carte émeraude */
+.etape--citron    { --couleur-etape: var(--etape-citron); }    /* variante : carte citron */
+.etape--framboise { --couleur-etape: var(--etape-framboise); } /* variante : carte framboise */
+.etape--lime      { --couleur-etape: var(--etape-lime); }      /* variante : carte lime */
+
+
+
+.etape::before {                                 /* la pastille ronde posée sur la ligne */
+    content: "";                                 /* contenu vide (forme décorative) */
+    position: absolute;                          /* placée librement par rapport à l'étape */
+    left: -51px;                                 /* se centre exactement sur la ligne verticale */
+    top: 35px;                                   /* alignée avec le titre de la carte */
+    width: 22px;                                 /* largeur de la pastille */
+    height: 22px;                                /* hauteur de la pastille */
+    border: 3px solid var(--couleur-etape);      /* anneau de la couleur de la carte */
+    border-radius: 50%;                          /* forme ronde */
+    background: var(--fond);                     /* centre vide (couleur du fond de la page) */
+}
+
+.etape--actuelle::before {                       /* pastille de l'étape en cours */
+    background: var(--couleur-etape);            /* centre rempli */
+    box-shadow: 0 0 0 5px var(--fond), 0 0 16px var(--couleur-etape); /* 1er : anneau de séparation ; 2e : lueur colorée */
+}
+
+.etape__carte {                                  /* <article> : la carte */
+    padding: 28px 32px;                          /* espace intérieur */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-left: 6px solid var(--couleur-etape); /* bordure gauche épaisse et colorée (elle suit l'arrondi) */
+    border-radius: 20px;                         /* grands coins arrondis */
+    background: var(--surface);                  /* fond de carte */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* ombre douce sous la carte */
+    transition: transform 0.2s;                  /* animation douce au survol */
+}
+
+.etape__carte:hover {                            /* survol de la carte */
+    transform: translateY(-3px);                 /* la carte monte légèrement */
+}
+
+.etape__entete {                                 /* <header> : titre à gauche, période à droite */
+    display: flex;                               /* éléments sur une ligne */
+    flex-wrap: wrap;                             /* la période passe dessous si la place manque */
+    justify-content: space-between;              /* titre à gauche, période tout à droite */
+    align-items: center;                         /* centrés verticalement */
+    gap: 10px 16px;                              /* espace vertical 10px, horizontal 16px */
+}
+
+.etape__titre {                                  /* <h3> : intitulé de l'étape */
+    font-size: 1.3rem;                           /* taille du titre */
+    font-weight: 800;                            /* très gras */
+}
+
+.etape__periode {                                /* pastille de la période */
+    padding: 6px 18px;                           /* espace intérieur */
+    border-radius: 999px;                        /* forme de pilule */
+    background: var(--surface-douce);            /* fond de secours si color-mix n'est pas supporté */
+    background: color-mix(in srgb, var(--couleur-etape) 18%, transparent); /* fond = 18 % de la couleur de la carte (ignoré si non supporté) */
+    color: var(--couleur-etape);                 /* texte dans la couleur de la carte */
+    font: 600 0.9rem var(--police-titre);        /* petit texte semi-gras */
+    white-space: nowrap;                         /* la période ne se coupe jamais sur deux lignes */
+}
+
+.etape__lieu {                                   /* établissement ou structure */
+    margin-top: 12px;                            /* espace au-dessus */
+    color: var(--couleur-etape);                 /* dans la couleur de la carte */
+    font: 600 1.05rem var(--police-titre);       /* semi-gras */
+}
+
+.etape__texte {                                  /* description */
+    margin-top: 14px;                            /* espace au-dessus */
+    color: var(--texte-doux);                    /* texte secondaire */
+}
+
+@media (max-width: 700px) {                      /* adaptation aux petits écrans */
+    .chronologie {
+        padding-left: 40px;                      /* moins d'espace à gauche */
+    }
+
+    .chronologie::before {
+        left: 8px;                               /* ligne plus proche du bord */
+    }
+
+    .etape::before {
+        left: -39px;                             /* pastille recentrée sur la nouvelle ligne */
+        top: 30px;                               /* ajustée à la carte plus compacte */
+        width: 18px;                             /* pastille plus petite */
+        height: 18px;                            /* pastille plus petite */
+    }
+
+    .etape__carte {
+        padding: 22px 20px;                      /* carte plus compacte */
+    }
+}
+
+
+/* ==========================================================================
+   9. PROJETS
+   Cartes de projets de la page d'accueil (écrites directement dans index.html).
+   ========================================================================== */
+
+.carte-projet {                                  /* carte cliquable d'un projet (c'est un lien <a>) */
+    display: block;                              /* tout le bloc est cliquable */
+    color: var(--texte);                         /* texte normal, pas rose comme un lien */
+    text-decoration: none;                       /* pas de soulignement */
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; /* animations douces */
+}
+
+.carte-projet:hover {                            /* survol de la carte */
+    color: var(--texte);                         /* garde la couleur du texte */
+    transform: translateY(-4px);                 /* la carte monte de 4 px */
+    border-color: var(--accent);                 /* contour rose */
+    box-shadow: 0 10px 26px var(--ombre-accent); /* lueur rose autour */
+}
+
+.carte-projet__icone {                           /* emoji du projet */
+    font-size: 2.2rem;                           /* grande taille */
+}
+
+.carte-projet__texte {                           /* description courte du projet */
+    margin: 6px 0 14px;                          /* espaces haut et bas */
+    color: var(--texte-doux);                    /* texte secondaire */
+    font-size: 0.95rem;                          /* légèrement plus petit */
+    text-align: justify;                            /* texte justifié, comme sur la capture de référence */
+}
+
+.carte-projet__lien {                            /* mention « Voir le projet → » */
+    color: var(--accent);                        /* en rose */
+    font: 700 0.9rem var(--police-titre);        /* petit texte gras */
+}
+
+
+/* ==========================================================================
+   10. CONTACT
+   ========================================================================== */
+
+.contact {                                       /* boîte à deux colonnes */
+    display: grid;                               /* mise en page en grille */
+    grid-template-columns: 1fr 1.2fr;            /* colonne coordonnées un peu plus étroite que le formulaire */
+    gap: 24px;                                   /* espace entre les colonnes */
+}
+
+.coordonnees p {                                 /* chaque bloc de coordonnée */
+    margin-bottom: 16px;                         /* espace en dessous */
+}
+
+.coordonnees__label {                            /* petit intitulé (Email, Téléphone…) */
+    display: block;                              /* sur sa propre ligne */
+    color: var(--texte-doux);                    /* couleur discrète */
+    font: 0.85rem var(--police-titre);           /* petite taille */
+}
+
+.formulaire__champ {                             /* un champ du formulaire (label + saisie) */
+    display: block;                              /* chaque champ sur sa ligne */
+    margin-bottom: 16px;                         /* espace entre les champs */
+    font: 600 0.9rem var(--police-titre);        /* intitulé en semi-gras */
+}
+
+.formulaire input,                               /* le sélecteur « , » applique la même règle à plusieurs éléments */
+.formulaire textarea {                           /* champs de saisie du formulaire */
+    width: 100%;                                 /* occupent toute la largeur */
+    margin-top: 6px;                             /* espace sous l'intitulé */
+    padding: 12px 14px;                          /* espace intérieur */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-radius: 10px;                         /* coins arrondis */
+    background: var(--fond);                     /* fond de la page, pour bien ressortir de la carte */
+    color: var(--texte);                         /* texte saisi */
+    font: 400 1rem var(--police-texte);          /* police et taille du texte saisi */
+}
+
+.formulaire textarea {                           /* seulement la zone de message */
+    min-height: 130px;                           /* hauteur minimale */
+    resize: vertical;                            /* on peut l'agrandir vers le bas uniquement */
+}
+
+.formulaire input:focus,                         /* :focus = champ en cours de saisie */
+.formulaire textarea:focus {
+    outline: 2px solid var(--accent);            /* contour rose pendant la saisie */
+    border-color: var(--accent);                 /* bordure rose aussi */
+}
+
+.formulaire__confirmation {                      /* message « votre application de messagerie s'ouvre… » */
+    display: none;                               /* caché au départ ; script.js le fait apparaître */
+    margin-top: 14px;                            /* espace au-dessus */
+    color: var(--accent-2);                      /* violet */
+    font: 0.9rem var(--police-titre);            /* petite taille */
+}
+
+.formulaire__confirmation--erreur {              /* variante : message d'erreur */
+    color: var(--accent);                        /* rose (couleur d'alerte du thème) */
+}
+
+.formulaire__piege {                             /* case anti-spam (piège à robots) */
+    display: none;                               /* invisible pour les humains */
+}
+
+.bouton:disabled {                               /* bouton pendant l'envoi */
+    opacity: 0.6;                                /* devient semi-transparent */
+    cursor: wait;                                /* curseur « patientez » */
+    transform: none;                             /* annule l'effet de survol */
+    box-shadow: none;                            /* annule la lueur du survol */
+}
+
+
+/* ==========================================================================
+   11. PIED DE PAGE ET BOUTON WHATSAPP
+   ========================================================================== */
+
+.pied {                                          /* <footer> */
+    padding: 40px 20px 100px;                    /* grand espace en bas pour ne pas être caché par le bouton WhatsApp */
+    color: var(--texte-doux);                    /* texte discret */
+    font: 0.9rem var(--police-titre);            /* petite taille */
+    text-align: center;                          /* texte centré */
+}
+
+.whatsapp {                                      /* bouton rond flottant */
+    position: fixed;                             /* fixe à l'écran, même en défilant */
+    right: 18px;                                 /* distance du bord droit */
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px)); /* distance du bas + marge de sécurité des téléphones */
+    z-index: 20;                                 /* au-dessus de tout le reste */
+    display: grid;                               /* grille d'une case… */
+    place-items: center;                         /* …pour centrer l'icône */
+    width: 58px;                                 /* largeur du bouton */
+    height: 58px;                                /* hauteur identique = rond */
+    border-radius: 50%;                          /* forme ronde */
+    background: #25d366;                         /* vert WhatsApp */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);  /* ombre sous le bouton */
+    transition: transform 0.2s;                  /* animation douce */
+}
+
+.whatsapp:hover {                                /* survol du bouton WhatsApp */
+    transform: scale(1.1);                       /* il grossit de 10 % */
+}
+
+.whatsapp svg {                                  /* l'icône à l'intérieur */
+    width: 32px;                                 /* largeur de l'icône */
+    height: 32px;                                /* hauteur de l'icône */
+    fill: #fff;                                  /* remplissage blanc (fill = couleur de remplissage d'un SVG) */
+}
+
+
+/* ==========================================================================
+   12. PAGE DÉTAIL D'UN PROJET (projet.html)
+   Pages détaillées : projet-onduleur.html, projet-solaire.html, projet-arduino.html, projet-web.html.
+   ========================================================================== */
+
+.page-projet {                                   /* conteneur de la page d'un projet */
+    max-width: 800px;                            /* colonne étroite = lecture confortable */
+    margin: 0 auto;                              /* centre la colonne */
+    padding: 60px 20px 30px;                     /* espaces intérieurs */
+}
+
+.page-projet__retour {                           /* lien « ← Retour aux projets » */
+    font: 600 0.95rem var(--police-titre);       /* texte semi-gras */
+    text-decoration: none;                       /* sans soulignement */
+    display: inline-block;                       /* permet d'appliquer une marge verticale à un lien */
+    margin-bottom: 24px;                         /* espace entre le lien et la fiche du projet */
+}
+
+.page-projet__titre {                            /* <h1> du projet */
+    display: flex;                               /* place le badge et le texte sur une ligne */
+    align-items: center;                         /* centre le badge verticalement par rapport au texte */
+    gap: 16px;                                   /* espace entre le badge et le texte */
+    margin: 22px 0 10px;                         /* espaces haut et bas */
+    font-size: clamp(1.8rem, 5vw, 2.7rem);       /* taille adaptée à l'écran */
+    font-weight: 800;                            /* très gras */
+}
+
+.page-projet__icone,                             /* badge d'icône du titre… */
+.carte-projet__icone {                           /* …et badge d'icône des cartes de l'accueil (même style) */
+    display: grid;                               /* grille d'une seule case… */
+    place-items: center;                         /* …pour centrer l'icône dans le badge */
+    flex-shrink: 0;                              /* le badge ne se rétrécit jamais, même si le titre est long */
+    border: 3px solid var(--eclair-bordure);     /* bordure orange */
+    border-radius: 16px;                         /* coins arrondis */
+    background: var(--eclair);                   /* fond jaune */
+    color: #3b1d00;                              /* éclair brun très foncé : bon contraste sur le jaune */
+    box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35); /* lueur orange sous le badge */
+}
+
+.page-projet__icone {                            /* taille du badge dans le titre */
+    width: 1.35em;                               /* largeur relative à la taille du titre */
+    height: 1.35em;                              /* hauteur identique = carré */
+    font-size: 0.75em;                           /* l'icône à l'intérieur est un peu plus petite que le texte */
+}
+
+.carte-projet__icone {                           /* taille du badge dans les cartes de l'accueil */
+    width: 56px;                                 /* largeur */
+    height: 56px;                                /* hauteur identique = carré */
+    margin-bottom: 8px;                          /* espace avant le titre de la carte */
+    font-size: 1.6rem;                           /* taille de l'icône */
+}
+
+
+.page-projet__sous-titre {                       /* <h2> : Technologies, Objectifs, Résultat */
+    margin: 32px 0 10px;                         /* grand espace au-dessus */
+    color: var(--accent);                        /* en rose */
+}
+
+.page-projet__liste {                            /* liste des objectifs */
+    padding-left: 22px;                          /* retrait à gauche */
+    color: var(--texte-doux);                    /* texte secondaire */
+    list-style: disc;                            /* remet les puces rondes (supprimées plus haut) */
+}
+
+.page-projet__texte {                            /* paragraphe « Résultat » */
+    color: var(--texte-doux);                    /* texte secondaire */
+}
+
+.page-projet .infos {                            /* étiquettes « Technologies » dans la page projet */
+    margin-top: 0;                               /* retire l'espace du haut prévu pour la page d'accueil */
+}
+
+.page-projet article .bouton {                   /* bouton « Discuter de ce projet » */
+    margin-top: 34px;                            /* espace au-dessus du bouton */
+}
+
+/* --- Contexte du projet (liste de définitions <dl>) --- */
+
+.contexte {                                      /* <dl> : liste « terme / définition » (Rôle, Période, Lieu) */
+    display: grid;                               /* chaque ligne l'une sous l'autre */
+    gap: 10px;                                   /* espace entre les lignes */
+    margin: 0;                                   /* retire la marge par défaut de <dl> */
+}
+
+.contexte__ligne {                               /* une ligne = un terme + sa valeur */
+    display: grid;                               /* deux colonnes */
+    grid-template-columns: 110px 1fr;            /* terme de 110px, valeur dans le reste */
+    gap: 12px;                                   /* espace entre les deux colonnes */
+    padding: 10px 14px;                          /* espace intérieur */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-radius: 10px;                         /* coins arrondis */
+    background: var(--surface);                  /* fond de carte */
+}
+
+.contexte dt {                                   /* <dt> : le terme (Rôle, Période, Lieu) */
+    color: var(--accent-2);                      /* violet */
+    font: 600 0.9rem var(--police-titre);        /* petit texte semi-gras */
+}
+
+.contexte dd {                                   /* <dd> : la valeur */
+    margin: 0;                                   /* retire le retrait par défaut de <dd> */
+    color: var(--texte-doux);                    /* texte secondaire */
+}
+
+/* --- Galerie de photos --- */
+
+.galerie {                                       /* <ul> : grille de photos */
+    display: grid;                               /* mise en page en grille */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* autant de colonnes que possible, d'au moins 220px */
+    gap: 16px;                                   /* espace entre les photos */
+}
+
+.galerie__figure {                               /* <figure> : photo + légende */
+    margin: 0;                                   /* retire la marge par défaut de <figure> */
+}
+
+.galerie__lien {                                 /* lien autour de la photo (ouvre l'image en grand) */
+    display: block;                              /* occupe toute la largeur de la case */
+}
+
+.galerie__image {                                /* la photo elle-même */
+    display: block;                              /* supprime l'espace parasite sous une image */
+    width: 100%;                                 /* remplit la largeur de la case */
+    aspect-ratio: 4 / 3;                         /* toutes les photos ont le même format (4 de large pour 3 de haut) */
+    object-fit: cover;                           /* recadre la photo pour remplir la case sans la déformer */
+    border: 1px solid var(--bordure);            /* contour fin */
+    border-radius: var(--rayon);                 /* coins arrondis */
+    transition: transform 0.2s, box-shadow 0.2s; /* animation douce au survol */
+}
+
+.galerie__image:hover {                          /* survol de la photo */
+    transform: scale(1.02);                      /* léger agrandissement */
+    box-shadow: 0 8px 22px var(--ombre-accent);  /* lueur rose */
+}
+
+.galerie__legende {                              /* <figcaption> : texte sous la photo */
+    margin-top: 8px;                             /* espace au-dessus */
+    color: var(--texte-doux);                    /* texte secondaire */
+    font: 0.85rem var(--police-titre);           /* petite taille */
+}
+
+.galerie__vide {                                 /* cadre affiché quand la photo n'existe pas encore */
+    display: grid;                               /* grille d'une case… */
+    place-items: center;                         /* …pour centrer le texte */
+    aspect-ratio: 4 / 3;                         /* même format que les vraies photos */
+    padding: 14px;                               /* espace intérieur */
+    border: 2px dashed var(--bordure);           /* contour en pointillés = « à compléter » */
+    border-radius: var(--rayon);                 /* coins arrondis */
+    color: var(--texte-doux);                    /* texte secondaire */
+    font: 0.85rem var(--police-titre);           /* petite taille */
+    text-align: center;                          /* texte centré */
+}
+
+
+/* ==========================================================================
+   13. ADAPTATION MOBILE (écrans de 700 px ou moins)
+   ========================================================================== */
+
+@media (max-width: 700px) {                      /* les règles ci-dessous ne s'appliquent que sur petits écrans */
+    .entete__barre {                             /* barre d'en-tête */
+        flex-direction: column;                  /* logo au-dessus, menu en dessous */
+    }
+
+    .menu a {                                    /* liens du menu */
+        padding: 6px 10px;                       /* zones cliquables un peu plus petites */
+        font-size: 0.9rem;                       /* texte un peu plus petit */
+    }
+
+    .hero {                                      /* section d'accueil */
+        grid-template-columns: 1fr;              /* une seule colonne */
+        padding-top: 50px;                       /* moins d'espace en haut */
+    }
+
+    .avatar {                                    /* médaillon */
+        order: -1;                               /* passe avant le texte (au-dessus) */
+        width: 130px;                            /* plus petit */
+        height: 130px;                           /* plus petit */
+        font-size: 2.8rem;                       /* initiales plus petites */
+    }
+
+    .contact {                                   /* zone de contact */
+        grid-template-columns: 1fr;              /* coordonnées puis formulaire, l'un sous l'autre */
+    }
+}
+
+
+/* ==========================================================================
+   14. RESPECT DU « MOUVEMENT RÉDUIT »
+   Certaines personnes désactivent les animations dans leur système.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {        /* si la personne demande moins d'animations */
+    html {
+        scroll-behavior: auto;                   /* plus de défilement animé */
+    }
+
+    *, *::before, *::after {                     /* tous les éléments */
+        transition: none !important;             /* supprime les animations de survol (!important = priorité maximale) */
+    }
+}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!-- <!DOCTYPE html> : indique au navigateur que le document utilise HTML5 -->
+<html lang="fr">
+<!-- <html> : racine de la page. lang="fr" aide les lecteurs d'écran et les moteurs de recherche à savoir que le texte est en français -->
+
+<head>  <!-- <head> : contient les informations invisibles de la page (titre, styles, réglages) -->
+    <meta charset="utf-8"> <!-- charset="utf-8" : permet d'afficher correctement les accents (é, è, ç) et les emojis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">    <!-- viewport : adapte la page à la largeur des téléphones ; viewport-fit=cover gère les écrans à encoche -->
+    <meta name="description" content="Portfolio d'Omo-Lara E. Irfane SALAMI, étudiante en Génie Électrique et Informatique à l'INSTI de Lokossa (Bénin) : compétences, parcours et projets.">   <!-- description : texte affiché par Google sous le titre dans les résultats de recherche -->
+    <meta name="theme-color" content="#1b1030"> <!-- theme-color : colore la barre du navigateur sur mobile (même violet foncé que le site) -->
+    <title>Omo-Lara Irfane SALAMI – Portfolio</title>   <!-- <title> : titre affiché dans l'onglet du navigateur -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">           <!-- Charge la bibliothèque d'icônes Font Awesome depuis internet : sans cette ligne, les balises <i class="fas fa-..."> restent vides -->
+    <link rel="stylesheet" href="styles.css">   <!-- <link rel="stylesheet"> : relie la page à la feuille de style styles.css -->
+</head>
+
+<body>
+    <!-- <body> : tout le contenu visible de la page -->
+
+    <a class="lien-evitement" href="#contenu-principal">Aller au contenu principal</a>
+    <!-- Lien d'accessibilité : invisible tant qu'on ne navigue pas au clavier (touche Tab). Il permet de sauter directement au contenu -->
+
+    <header class="entete">
+        <!-- <header> : zone d'en-tête de la page (logo + menu) -->
+        <div class="entete__barre">
+            <!-- <div> : simple boîte de mise en page, ici pour aligner le logo et le menu sur une ligne -->
+            <a class="logo" href="index.html#accueil">
+                <!-- <a> : lien cliquable ; ramène ici à la section d'accueil -->
+                Omo-Lara<span class="logo__point">.</span>
+                <!-- <span> : petite zone de texte sans effet, utilisée pour colorer le point final en rose -->
+            </a>
+            <nav class="menu" aria-label="Navigation principale">
+                <!-- <nav> : balise sémantique pour un menu de navigation ; aria-label l'identifie pour les lecteurs d'écran -->
+                <a href="index.html#accueil">Accueil</a>
+                <a href="index.html#competences">Compétences</a>
+                <a href="index.html#parcours">Parcours</a>
+                <a href="index.html#projets">Projets</a>
+                <a href="index.html#contact">Contact</a>
+                <!-- Chaque lien pointe vers une section grâce à son identifiant (#id) -->
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenu-principal">
+        <!-- <main> : contenu principal et unique de la page (il ne doit apparaître qu'une fois) -->
+
+        <!-- ========== SECTION 1 : ACCUEIL ========== -->
+        <section id="accueil" class="hero" aria-labelledby="titre-hero">
+            <!-- <section> : regroupe un bloc de contenu thématique ; aria-labelledby le relie à son titre (#titre-hero) -->
+            <div class="hero__texte">
+                <p class="surtitre">Portfolio · Génie Électrique et Informatique</p>
+                <!-- <p> : paragraphe. Ici un petit texte d'introduction au-dessus du titre -->
+                <h1 id="titre-hero" class="hero__titre">Omo-Lara E. Irfane <span class="hero__nom">SALAMI</span></h1>
+                <!-- <h1> : titre principal de la page (un seul par page). Le nom de famille est mis en valeur avec <span> -->
+                <p class="hero__intro">Étudiante en Génie Électrique et Informatique, option Électronique et Électrotechnique à l'INSTI de Lokossa (Mono, Bénin). Je conçois des montages électroniques et des solutions qui allient informatique, électronique, électricité, développement web et programmation.</p>
+
+                <div class="hero__boutons">
+                    <a class="bouton" href="#projets">Voir mes projets</a>
+                    <a class="bouton bouton--contour" href="#contact">Me contacter</a>
+                    <!-- Deux boutons-liens : "bouton" = plein, "bouton--contour" = variante avec simple bordure -->
+                </div>
+
+                <ul class="infos">
+                    <!-- <ul> : liste à puces ; chaque <li> est un élément de la liste (remplace les anciens <br>) -->
+                    <li class="etiquette">🎓 INSTI | UNSTIM</li>
+                    <li class="etiquette">📍 Lokossa, Mono, Bénin</li>
+                    <li class="etiquette">🎂 22 ans</li>
+                </ul>
+            </div>
+
+            <figure class="hero__visuel" aria-hidden="true">
+                <!-- <figure> : bloc visuel illustratif ; aria-hidden="true" le cache aux lecteurs d'écran car il est purement décoratif -->
+                <div class="avatar">OS</div>
+                <!-- Médaillon avec les initiales (O et S) à la place d'une photo -->
+            </figure>
+        </section>
+
+        <!-- ========== SECTION 2 : COMPÉTENCES ========== -->
+        <section id="competences" class="section" aria-labelledby="titre-competences">
+            <h2 id="titre-competences" class="section__titre">Compétences</h2>
+            <!-- <h2> : titre d'une section (niveau 2, sous le <h1>) -->
+            <p class="section__intro">Un profil à la croisée de l'électronique, de l'électrotechnique et de l'informatique.</p>
+
+            <div class="grille">
+                <!-- Grille : le CSS disposera les 3 cartes côte à côte, puis en colonne sur mobile -->
+
+                <article class="carte">
+                    <!-- <article> : bloc de contenu autonome, ici une catégorie de compétences -->
+                    <h3 class="carte__titre">⚡ Électrotechnique</h3>
+                    <!-- <h3> : sous-titre (niveau 3, sous le <h2>) -->
+                    <ul class="competences">
+                        <li class="competence">
+                            <span class="competence__nom">Installations électriques</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:100%"></i></div>
+                            <!-- competence__fond = barre grise ; competence__niveau = partie colorée dont la largeur (style="width") indique le niveau en % -->
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Machines électriques</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:70%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Énergie solaire</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:65%"></i></div>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="carte">
+                    <h3 class="carte__titre">🔌 Électronique</h3>
+                    <ul class="competences">
+                        <li class="competence">
+                            <span class="competence__nom">Circuits analogiques</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:80%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Microcontrôleurs (Arduino)</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:75%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Simulation (Proteus)</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:70%"></i></div>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="carte">
+                    <h3 class="carte__titre">💻 Informatique</h3>
+                    <ul class="competences">
+                        <li class="competence">
+                            <span class="competence__nom">Programmation C++ / Python</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:70%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Développement Web (HTML / CSS)</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:65%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Bureautique</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:90%"></i></div>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="carte">
+                    <h3 class="carte__titre">🌍 Langue</h3>
+                    <ul class="competences">
+                        <li class="competence">
+                            <span class="competence__nom">Français</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:100%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Anglais</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:80%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Yoruba</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:100%"></i></div>
+                        </li>
+                        <li class="competence">
+                            <span class="competence__nom">Goun</span>
+                            <div class="competence__fond"><i class="competence__niveau" style="width:100%"></i></div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+                <!-- ========== SECTION 3 : PARCOURS ========== -->
+        <section id="parcours" class="section" aria-labelledby="titre-parcours">
+            <h2 id="titre-parcours" class="section__titre">Parcours</h2>
+            <p class="section__intro">Mon cheminement académique et mes expériences.</p>
+
+            <ol class="chronologie">
+                <!-- <ol> : liste ordonnée (le parcours suit l'ordre du temps, du plus récent au plus ancien) -->
+
+                <li class="etape etape--rose etape--actuelle">
+                    <!-- <li> : une étape ; "etape--rose" = couleur de la carte ; "etape--actuelle" = pastille pleine (étape en cours) -->
+                    <article class="etape__carte">
+                        <!-- <article> : la carte, un contenu autonome -->
+                        <header class="etape__entete">
+                            <!-- <header> : titre de l'étape + période, alignés sur une ligne -->
+                            <h3 class="etape__titre">Étudiante en Génie Électrique &amp; Informatique</h3>
+                            <p class="etape__periode">2026 – 2027</p>
+                            <!-- Pastille de la période, placée à droite grâce au CSS -->
+                        </header>
+                        <p class="etape__lieu">INSTI Lokossa · Mono · Bénin</p>
+                        <!-- Établissement, écrit dans la couleur de la carte -->
+                        <p class="etape__texte">2ème année de formation en Génie Électrique &amp; Informatique option Électronique et Électrotechnique.</p>
+                    </article>
+                </li>
+
+
+                <li class="etape etape--emeraude">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre"> Stage académique à la SBEE</h3>
+                            <p class="etape__periode">Décembre 2025 – Janvier 2026</p>
+                        </header>
+                        <p class="etape__lieu"> SBEE, Porto-Novo, Ouémé, Bénin </p>
+                        <p class="etape__texte">Stage académique de fin d'études de la première année.</p>
+                    </article>
+                </li>
+
+                <li class="etape etape--violet"> 
+                    <article class="etape__carte">
+                        <!-- <article> : la carte, un contenu autonome -->
+                        <header class="etape__entete">
+                            <!-- <header> : titre de l'étape + période, alignés sur une ligne -->
+                            <h3 class="etape__titre">Étudiante en Génie Électrique &amp; Informatique</h3>
+                            <p class="etape__periode">2025 – 2026</p>
+                            <!-- Pastille de la période, placée à droite grâce au CSS -->
+                        </header>
+                        <p class="etape__lieu">INSTI Lokossa · Mono · Bénin</p>
+                        <!-- Établissement, écrit dans la couleur de la carte -->
+                        <p class="etape__texte">1ère année de formation en Génie Électrique &amp; Informatique option Électronique et Électrotechnique.</p>
+                    </article>
+                </li>
+                        
+
+                <li class="etape etape--citron"> 
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre"> Stage chez un électricien résidentiel</h3>
+                            <p class="etape__periode">Septembre – Octobre 2025</p>
+                        </header>
+                        <p class="etape__lieu">Porto-Novo, Ouémé, Bénin </p>
+                        <p class="etape__texte">Stage d'initiation à la pratique professionnelle dans le domaine de l'électricité résidentielle.</p>
+                    </article>
+                </li>
+
+
+                <li class="etape etape--fuchsia">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre">Baccalauréat série F3</h3>
+                            <p class="etape__periode">2024-2025</p>
+                        </header>
+                        <p class="etape__lieu">Lycée CPET Le Phénix · Porto-Novo, Bénin</p>
+                        <p class="etape__texte">Baccalauréat scientifique série F3 (Electrotechnique).</p>
+                    </article>
+                </li>
+
+                <li class="etape etape--indigo">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre">Diplôme de Technicien (DT)</h3>
+                            <p class="etape__periode">2024-2025</p>
+                        </header>
+                        <p class="etape__lieu">Lycée CPET Le Phénix · Porto-Novo, Bénin</p>
+                        <p class="etape__texte">Diplôme de Technicien (DT) en Électronique et Électrotechnique.</p>
+                    </article>
+                </li>
+
+
+                <li class="etape etape--framboise"> 
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre"> Stage chez un électricien résidentiel</h3>
+                            <p class="etape__periode">Juillet – Août 2024</p> 
+                        </header>
+                        <p class="etape__lieu">Porto-Novo, Ouémé, Bénin </p>
+                        <p class="etape__texte">Stage d'initiation à la réalisation d’installations électriques domestiques, au raccordement des circuits dans le domaine de l'électricité résidentielle.</p>
+                    </article>
+                </li>
+
+
+                <li class="etape etape--corail">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre">Certificat d'Aptitude Professionnelle</h3>
+                            <p class="etape__periode">2023-2024</p>
+                        </header>
+                        <p class="etape__lieu">Lycée CPET Le Phénix · Porto-Novo, Bénin</p>
+                        <p class="etape__texte">Certificat d'Aptitude Professionnelle en Électronique et Électrotechnique.</p>
+                    </article>
+                </li>
+
+
+                <li class="etape etape--lime">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre"> Stage chez un électricien résidentiel</h3>
+                            <p class="etape__periode">Août – Septembre 2023</p>
+                        </header>
+                        <p class="etape__lieu">Porto-Novo, Ouémé, Bénin </p>
+                        <p class="etape__texte">Initiation aux techniques de câblage électrique, à la lecture de schémas électriques, au montage de prises et d’interrupteurs, ainsi qu’à l’identification et à la correction de défauts électriques courants.</p>
+                    </article>
+                </li>
+                
+
+                <li class="etape etape--ambre">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre">BEPC</h3>
+                            <p class="etape__periode">2021-2022</p>
+                        </header>
+                        <p class="etape__lieu">CEG KOUTONGBE · Porto-Novo, Bénin</p>
+                        <p class="etape__texte">Brevet d'Études du Premier Cycle (BEPC).</p>
+                    </article>
+                </li>
+
+                <li class="etape etape--turquoise">
+                    <article class="etape__carte">
+                        <header class="etape__entete">
+                            <h3 class="etape__titre">CEP</h3>
+                            <p class="etape__periode">2014-2015</p>
+                        </header>
+                        <p class="etape__lieu">CSP Jean-Bosco · Porto-Novo, Bénin</p>
+                        <p class="etape__texte">Certificat d'Études du Premier Cycle (CEP).</p>
+                    </article>
+                </li>
+            </ol>
+        </section>
+
+        <!-- ========== SECTION 4 : PROJETS ========== -->
+        <section id="projets" class="section" aria-labelledby="titre-projets">
+            <h2 id="titre-projets" class="section__titre">Mes projets</h2>
+            <p class="section__intro">Cliquez sur un projet pour en voir le détail.</p>
+
+            <ul class="grille">
+                <!-- <ul> : liste de 4 cartes ; chaque <li> est un projet. Un clic ouvre la page .html du projet.
+                     Pour ajouter un projet : copier un <li>, changer le lien et les textes, puis créer la page correspondante -->
+                <li>
+                    <a class="carte carte-projet" href="projet_electricite.html">
+                        <!-- Toute la carte est un lien vers la page du projet -->
+                        <div class="carte-projet__icone" aria-hidden="true">🔋</div>
+                        <!-- Emoji décoratif (caché aux lecteurs d'écran) -->
+                        <h3 class="carte__titre">Etude et réalisation des installations électriques domestiques</h3>
+                        <p class="carte-projet__texte">· Établissement du schéma unifilaire et du schéma de câblage; Dimensionnement des conducteurs et choix des protections (disjoncteurs, différentiels); Pose de l’appareillage, des prises, de l’éclairage et du tableau de distribution; Mise à la terre et contrôle de l’installation</p>
+                        <span class="carte-projet__lien">Voir le projet →</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="carte carte-projet" href="projet_api.html">
+                        <!-- Toute la carte est un lien vers la page du projet -->
+                        <div class="carte-projet__icone" aria-hidden="true">☀️</div>
+                        <!-- Emoji décoratif (caché aux lecteurs d'écran) -->
+                        <h3 class="carte__titre">Programmation d'automates avec TIA Portal</h3>
+                        <p class="carte-projet__texte">Conception et programmation d'automates programmables industriels (API) pour l'automatisation et le contrôle des systèmes industriels.</p>
+                        <span class="carte-projet__lien">Voir le projet →</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="carte carte-projet" href="projet_arduino.html">
+                        <!-- Toute la carte est un lien vers la page du projet -->
+                        <div class="carte-projet__icone" aria-hidden="true">🤖</div>
+                        <!-- Emoji décoratif (caché aux lecteurs d'écran) -->
+                        <h3 class="carte__titre">Système domotique Arduino</h3>
+                        <p class="carte-projet__texte">Contrôle automatique de l'éclairage et détection de présence avec Arduino.</p>
+                        <span class="carte-projet__lien">Voir le projet →</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ========== SECTION 5 : CONTACT ========== -->
+        <section id="contact" class="section" aria-labelledby="titre-contact">
+            <h2 id="titre-contact" class="section__titre">Contact</h2>
+            <p class="section__intro">Une question, une collaboration ? Écrivez-moi.</p>
+
+            <div class="contact">
+                <!-- Deux colonnes : coordonnées à gauche, formulaire à droite -->
+
+                <address class="carte coordonnees">
+                    <!-- <address> : balise sémantique réservée aux coordonnées de contact de l'auteur -->
+                    <p>
+                        <span class="coordonnees__label">Email</span>
+                        <a href="mailto:irfanesalami4@gmail.com">irfanesalami4@gmail.com</a>
+                        <!-- mailto: ouvre l'application de messagerie -->
+                    </p>
+                    <p>
+                        <span class="coordonnees__label">Téléphone</span>
+                        <a href="tel:+2290157760662">+229 01 57 76 06 62</a><br>
+                        <a href="tel:+2290144279804">+229 01 44 27 98 04</a>
+                        <!-- tel: lance un appel depuis un téléphone ; <br> force un retour à la ligne -->
+                    </p>
+                    <p>
+                        <span class="coordonnees__label">Localisation</span>
+                        INSTI Lokossa, Mono, Bénin
+                    </p>
+                    <a class="bouton bouton--whatsapp" href="https://wa.me/2290157760662" target="_blank" rel="noopener">Discuter sur WhatsApp</a>
+                    <!-- target="_blank" ouvre un nouvel onglet ; rel="noopener" sécurise ce nouvel onglet -->
+                </address>
+
+                <form class="carte formulaire" id="f" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- action + method : adresse du service Web3Forms qui reçoit le message et le transmet par e-mail.
+                        Sans JavaScript, le formulaire fonctionne quand même grâce à ces deux attributs -->
+                    <input type="hidden" name="access_key" value="392321c5-c0ee-4a7a-99c7-f6b2e03dc2f9">
+                    <!-- Clé d'accès reçue par e-mail : colle-la à la place du texte. Elle est publique par conception -->
+                    <input type="hidden" name="subject" value="Nouveau message depuis le portfolio">
+                    <!-- Objet de l'e-mail que tu recevras -->
+                    <input type="hidden" name="from_name" value="Portfolio – Omo-Lara E. Irfane SALAMI">
+                    <!-- Nom d'expéditeur affiché dans ta boîte mail -->
+                    <input type="checkbox" name="botcheck" class="formulaire__piege" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <!-- Piège anti-spam : invisible pour les humains, cochée par les robots, dont le message est alors rejeté -->
+
+                    <label class="formulaire__champ" for="n">Nom
+                        <input id="n" name="name" type="text" autocomplete="name" required>
+                        <!-- name="name" : nom attendu par Web3Forms pour l'expéditeur -->
+                    </label>
+                    <label class="formulaire__champ" for="e">Email
+                        <input id="e" name="email" type="email" autocomplete="email" required>
+                        <!-- name="email" : l'adresse du visiteur ; en cliquant sur « Répondre », tu lui réponds directement -->
+                    </label>
+                    <label class="formulaire__champ" for="m">Message
+                        <textarea id="m" name="message" rows="5" required></textarea>
+                    </label>
+                    <button class="bouton" type="submit">Envoyer le message</button>
+                    <p id="ok" class="formulaire__confirmation" role="status"></p>
+                    <!-- Paragraphe vide : le JavaScript y écrit « Merci ! » ou le message d'erreur -->
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pied">
+        <!-- <footer> : pied de page (mentions de fin) -->
+        <p>© 2026 Omo-Lara E. Irfane SALAMI · Tous droits réservés</p>
+    </footer>
+
+    <a class="whatsapp" href="https://wa.me/2290157760662" target="_blank" rel="noopener" aria-label="Discuter sur WhatsApp">
+        <!-- Bouton rond flottant en bas à droite ; aria-label donne un nom au lien car il ne contient qu'une icône -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.4-.6-.5-1-1.2-1.2-1.5-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.4c-.2 0-.5.1-.7.3-.7.7-1 1.5-.9 2.5.2 1.1.7 2.1 1.4 3 1.4 1.8 3.1 2.7 4.7 3.1.9.3 1.7.2 2.3 0 .7-.2 1.3-.9 1.5-1.6.1-.4.1-.7 0-.8z"/></svg>
+        <!-- <svg> : image vectorielle (logo WhatsApp) nette à toutes les tailles ; <path> en dessine le contour -->
+    </a>
+
+    <script src="script.js"></script>
+    <!-- <script> : charge le JavaScript en fin de page, une fois tout le HTML affiché -->
+</body>
+
+</html>
