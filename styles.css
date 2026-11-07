@@ -39,6 +39,7 @@
     --accent-2: #c77dff;                         /* violet clair : seconde couleur du dégradé */
     --texte-bouton: #1b1030;                     /* texte sombre posé sur les boutons clairs */
     --bordure: #4a2c75;                          /* couleur des traits et contours */
+    --turquoise: #2dd4bf;                        /* turquoise de la pastille « Domotique » (thème sombre) */
     --ombre-accent: rgba(255, 79, 163, 0.35);    /* lueur rose (rgba = rouge, vert, bleu, transparence) */
     --entete-fond: rgba(27, 16, 48, 0.85);       /* fond semi-transparent de l'en-tête */
     --rayon: 16px;                               /* arrondi standard des cartes */
@@ -64,6 +65,7 @@
         --accent-2: #7c3aed;                     /* violet intense */
         --texte-bouton: #ffffff;                 /* texte blanc sur les boutons foncés */
         --bordure: #ecd2e6;                      /* traits rose pâle */
+        --turquoise: #0f766e;                    /* turquoise plus foncé, lisible sur fond clair */
         --ombre-accent: rgba(192, 38, 143, 0.25);/* lueur fuchsia plus discrète */
         --entete-fond: rgba(255, 244, 251, 0.88);/* en-tête clair semi-transparent */
         color-scheme: light;                     /* page claire pour le navigateur */
@@ -186,7 +188,10 @@ img, svg {                                       /* images et icônes vectoriell
     padding: 14px 20px;                          /* espace intérieur : haut/bas 14px, côtés 20px */
 }
 
-.logo {                                          /* texte « Omo-Lara. » */
+.logo {                                          /* lien « logo + Omo-Lara. » */
+    display: inline-flex;                        /* image et texte sur une même ligne, comme des éléments flexibles */
+    align-items: center;                         /* centre l'image et le texte verticalement */
+    gap: 10px;                                   /* espace entre le cercle et le texte */
     color: var(--texte);                         /* texte clair */
     font: 700 1.35rem var(--police-titre);       /* raccourci : graisse 700 (gras), taille 1.35rem, police */
     letter-spacing: 0.3px;                       /* léger espace entre les lettres */
@@ -195,6 +200,17 @@ img, svg {                                       /* images et icônes vectoriell
 
 .logo:hover {                                    /* survol du logo */
     color: var(--texte);                         /* il garde sa couleur */
+}
+
+.logo__image {                                   /* le petit logo rond */
+    flex-shrink: 0;                              /* ne se rétrécit jamais, même si la place manque */
+    width: 40px;                                 /* largeur du cercle */
+    height: 40px;                                /* hauteur identique = cercle parfait */
+    border: 2px solid var(--accent);             /* anneau rose autour du logo */
+    border-radius: 50%;                          /* 50 % d'arrondi = forme ronde */
+    background: var(--surface);                  /* fond uni derrière le logo (utile s'il a un fond transparent) */
+    object-fit: cover;                           /* recadre l'image pour remplir le cercle sans la déformer */
+    box-shadow: 0 0 12px var(--ombre-accent);    /* légère lueur rose autour du cercle */
 }
 
 .logo__point {                                   /* le point final du logo */
@@ -288,20 +304,86 @@ img, svg {                                       /* images et icônes vectoriell
     font: 0.9rem var(--police-titre);            /* petite taille */
 }
 
-.hero__visuel {                                  /* <figure> qui contient le médaillon */
+.hero__visuel {                                  /* <figure> : zone qui contient le médaillon et les pastilles */
+    position: relative;                          /* repère pour positionner les pastilles à l'intérieur */
+    width: 360px;                                /* largeur de la zone (plus large que le cercle de 220px) */
+    height: 340px;                               /* hauteur de la zone */
     margin: 0;                                   /* <figure> a une marge par défaut : on la retire */
 }
 
 .avatar {                                        /* médaillon avec les initiales */
     display: grid;                               /* grille d'une seule case… */
-    place-items: center;                         /* …pour centrer facilement le texte */
     width: 220px;                                /* largeur du cercle */
     height: 220px;                               /* hauteur identique = cercle parfait */
     border-radius: 50%;                          /* 50 % d'arrondi = cercle */
     background: linear-gradient(135deg, var(--accent), var(--accent-2)); /* dégradé rose → violet en diagonale */
     box-shadow: 0 0 0 10px var(--surface-douce), 0 12px 40px var(--ombre-accent); /* 1er : anneau autour du cercle ; 2e : lueur rose en dessous */
-    color: var(--texte-bouton);                  /* initiales sombres sur fond clair */
-    font: 800 4.5rem var(--police-titre);        /* très gros texte gras */
+    overflow: hidden;                            /* coupe tout ce qui dépasse du cercle : l'image prend sa forme ronde */
+    background: var(--surface);                  /* fond uni derrière le logo (remplace le dégradé si le logo a un fond transparent) */
+    position: absolute;                          /* sorti du flux : on le place nous-mêmes */
+    top: 50%;                                    /* son bord haut est au milieu de la zone… */
+    left: 50%;                                   /* …son bord gauche aussi… */
+    transform: translate(-50%, -50%);            /* …puis on le décale de la moitié de sa taille pour le centrer exactement */
+}
+
+.avatar img {                                    /* le logo dans le médaillon */
+    display: block;                              /* supprime l'espace parasite sous une image */
+    width: 100%;                                 /* remplit toute la largeur du cercle */
+    height: 100%;                                /* remplit toute la hauteur du cercle */
+    object-fit: cover;                           /* recadre l'image pour remplir le cercle sans la déformer */
+}
+
+.module {                                        /* <li> : une pastille */
+    --couleur-module: var(--accent);             /* couleur de la bordure (rose par défaut) */
+    --couleur-icone: var(--couleur-module);      /* couleur de l'icône (par défaut, celle de la bordure) */
+    position: absolute;                          /* placée librement dans la zone .hero__visuel */
+    display: flex;                               /* icône et texte sur une ligne */
+    align-items: center;                         /* centrés verticalement */
+    gap: 8px;                                    /* espace entre l'icône et le texte */
+    padding: 9px 16px;                           /* espace intérieur */
+    border: 2px solid var(--couleur-module);     /* bordure colorée */
+    border-radius: 999px;                        /* forme de pilule */
+    background: var(--surface);                  /* fond de carte : le texte reste lisible en thème clair comme sombre */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);  /* ombre sous la pastille */
+    color: var(--texte);                         /* couleur du texte */
+    font: 700 0.85rem var(--police-titre);       /* petit texte gras */
+    white-space: nowrap;                         /* le texte ne passe jamais à la ligne */
+    transform: translateY(var(--flottement, 0px)) rotate(var(--rotation, 0deg));
+    /* --flottement est modifié en continu par le JavaScript (mouvement haut/bas) ; --rotation est l'inclinaison fixe de la pastille */
+    will-change: transform;                      /* prévient le navigateur que ce transform bouge souvent (animation plus fluide) */
+}
+
+.module i {                                      /* l'icône dans la pastille */
+    color: var(--couleur-icone);                 /* couleur choisie pour cette pastille */
+}
+
+.module--electricite {                           /* en haut à gauche */
+    top: 4%;                                     /* 4 % depuis le haut de la zone */
+    left: 0;                                     /* collée au bord gauche */
+    --couleur-module: var(--eclair-bordure);     /* bordure orange */
+    --couleur-icone: var(--eclair);              /* éclair jaune */
+    --rotation: -5deg;                           /* légèrement penchée à gauche */
+}
+
+.module--electronique {                          /* en haut à droite */
+    top: 14%;
+    right: 0;                                    /* collée au bord droit */
+    --couleur-module: var(--accent);             /* rose */
+    --rotation: 6deg;
+}
+
+.module--mobile {                                /* en bas à droite */
+    bottom: 14%;
+    right: 0;
+    --couleur-module: var(--accent-2);           /* violet */
+    --rotation: -4deg;
+}
+
+.module--domotique {                             /* en bas à gauche */
+    bottom: 4%;
+    left: 6%;
+    --couleur-module: var(--turquoise);          /* turquoise */
+    --rotation: 5deg;
 }
 
 
@@ -575,6 +657,33 @@ img, svg {                                       /* images et icônes vectoriell
 
     .etape__carte {
         padding: 22px 20px;                      /* carte plus compacte */
+    }
+
+
+    .hero__visuel {                              /* zone du logo et des pastilles sur mobile */
+        order: -1;                               /* passe avant le texte (au-dessus) */
+        width: 100%;                             /* prend la largeur de l'écran… */
+        max-width: 320px;                        /* …sans dépasser 320px */
+        height: 270px;                           /* zone moins haute */
+        margin: 0 auto;                          /* centrée */
+    }
+
+    .avatar {                                    /* médaillon plus petit */
+        width: 130px;
+        height: 130px;
+    }
+
+    .module {                                    /* pastilles plus compactes */
+        padding: 6px 11px;                       /* moins d'espace intérieur */
+        font-size: 0.72rem;                      /* texte plus petit */
+        white-space: normal;                     /* le texte peut passer sur 2 lignes */
+        max-width: 130px;                        /* évite que les pastilles recouvrent le logo */
+    }
+
+
+    .logo__image {                               /* logo plus petit sur mobile */
+        width: 34px;                             /* largeur réduite */
+        height: 34px;                            /* hauteur réduite */
     }
 }
 
