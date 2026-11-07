@@ -112,3 +112,42 @@ function remplacerImagesManquantes() {
 
 activerFormulaire();                              // active le formulaire (page d'accueil seulement)
 remplacerImagesManquantes();                      // remplace les photos absentes (pages projet seulement)
+animerModules();                                  // fait flotter les pastilles autour du logo (page d'accueil seulement)
+
+
+
+/* ==========================================================================
+   MODULES FLOTTANTS
+   Chaque pastille monte et descend en continu, comme si elle flottait.
+   ========================================================================== */
+
+function animerModules() {
+    const modules = document.querySelectorAll(".module");     // toutes les pastilles de la page
+    if (modules.length === 0) return;                         // aucune pastille (autre page) → on arrête
+
+    const mouvementReduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // matchMedia : interroge les réglages du système ; true si la personne a demandé de réduire les animations
+    if (mouvementReduit) return;                              // dans ce cas, les pastilles restent immobiles
+
+    const debut = performance.now();                          // instant de départ en millisecondes
+
+    function image(maintenant) {                              // appelée avant chaque affichage de l'écran (≈ 60 fois par seconde)
+        const secondes = (maintenant - debut) / 1000;         // temps écoulé depuis le début, en secondes
+
+        modules.forEach((module) => {                         // pour chaque pastille…
+            const amplitude = Number(module.dataset.amplitude) || 10;  // hauteur du va-et-vient (data-amplitude), 10 px par défaut
+            const vitesse = Number(module.dataset.vitesse) || 1;       // rapidité (data-vitesse), 1 par défaut
+            const phase = Number(module.dataset.phase) || 0;           // décalage de départ (data-phase), 0 par défaut
+
+            const decalage = Math.sin(secondes * vitesse + phase) * amplitude;
+            // Math.sin donne une valeur qui oscille entre -1 et 1 : multipliée par l'amplitude, elle monte puis descend en boucle
+
+            module.style.setProperty("--flottement", `${decalage}px`);
+            // écrit la valeur dans la variable CSS --flottement, utilisée par transform: translateY(...)
+        });
+
+        requestAnimationFrame(image);                         // demande au navigateur de rappeler cette fonction à l'image suivante
+    }
+
+    requestAnimationFrame(image);                             // lance la boucle d'animation
+}
