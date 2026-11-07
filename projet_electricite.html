@@ -32,9 +32,12 @@
         <div class="entete__barre">
             <!-- Boîte qui aligne le logo et le menu sur une ligne -->
             <a class="logo" href="index.html#accueil">
-                <!-- Le logo est un lien qui ramène à la page d'accueil -->
-                Omo-Lara<span class="logo__point">.</span>
-                <!-- <span> : zone de texte sans effet propre, utilisée pour colorer le point en rose -->
+                <!-- Le logo est un lien qui ramène à la page d'accueil ; il contient maintenant l'image ET le texte -->
+                <img class="logo__image" src="./images/ZahraLogo.png" alt="" width="40" height="40">
+                <!-- alt="" : image décorative ici, car le texte « Omo-Lara » à côté donne déjà le nom du lien aux lecteurs d'écran ;
+                    width et height : réservent la place avant le chargement (évite que l'en-tête « saute ») -->
+                <span>Omo-Lara<span class="logo__point">.</span></span>
+                <!-- <span> extérieur : regroupe le texte pour la mise en page ; <span> intérieur : colore le point en rose -->
             </a>
             <nav class="menu" aria-label="Navigation principale">
                 <!-- <nav> : menu de navigation ; aria-label l'identifie pour les lecteurs d'écran -->
